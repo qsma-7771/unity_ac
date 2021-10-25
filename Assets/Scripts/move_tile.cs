@@ -31,10 +31,9 @@ public class move_tile : MonoBehaviour
           (transform.position.x) + "," +
           (transform.position.y) + "," +
           (transform.position.z) + "," +
-          transform.rotation.x + "," +
-          transform.rotation.y + "," +
-          transform.rotation.z + "," +
-          transform.rotation.w
+          transform.localScale.x + "," +
+          transform.localScale.y + "," +
+          transform.localScale.z
         );
         sw.Flush();
         sw.Close();
@@ -58,5 +57,8 @@ public class move_tile : MonoBehaviour
         transform.position += new Vector3(0.01f,0f,0f);
       }
       transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/6f);
+      if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger)) {
+        transform.localScale = new Vector3(1f,0.1f,1f);
+      }
     }
 }

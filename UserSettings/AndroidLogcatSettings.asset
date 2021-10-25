@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1WMHH8113E0411",
         "name": "com.qsma.checker_shadow",
-        "processId": 28032,
+        "processId": 30058,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -180,6 +180,12 @@
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow",
             "processId": 28032,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow",
+            "processId": 30058,
             "exited": false
         }
     ],

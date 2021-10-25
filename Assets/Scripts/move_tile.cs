@@ -26,6 +26,10 @@ public class move_tile : MonoBehaviour
       // reset & get data
       if (OVRInput.GetDown(OVRInput.RawButton.A)) {
         StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
+        var compare_pos = 0f;
+        if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+          compare_pos = GameObject.Find("compare").transform.position.x;
+        }
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           SceneManager.GetActiveScene().name + "," +
@@ -34,7 +38,10 @@ public class move_tile : MonoBehaviour
           (transform.position.z) + "," +
           transform.localScale.x + "," +
           transform.localScale.y + "," +
-          transform.localScale.z
+          transform.localScale.z + "," +
+          OVRInput.Get(OVRInput.RawButton.RIndexTrigger) + "," +
+          OVRInput.Get(OVRInput.RawButton.RHandTrigger) + "," +
+          compare_pos
         );
         sw.Flush();
         sw.Close();
@@ -57,15 +64,20 @@ public class move_tile : MonoBehaviour
       } else if (OVRInput.Get(OVRInput.RawButton.LThumbstickRight)) {
         transform.position += new Vector3(0.01f,0f,0f);
       }
+
+      // localScale
       transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/6f);
       if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger)) {
         transform.localScale = new Vector3(1f,0.1f,1f);
       }
-      compare_tile.SetActive(false);
+
+      // compare tile
       if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
-        compare_tile.transform.position = this.transform.position - transform.right*this.transform.localScale.x;
+        compare_tile.transform.position = this.transform.position;// - transform.right*this.transform.localScale.x;
         compare_tile.transform.localScale = this.transform.localScale;
         compare_tile.SetActive(true);
+      } else {
+        compare_tile.SetActive(false);
       }
     }
 }

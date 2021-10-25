@@ -7,6 +7,7 @@ using System.IO;
 
 public class move_tile : MonoBehaviour
 {
+    public GameObject compare_tile;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,12 @@ public class move_tile : MonoBehaviour
       transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/6f);
       if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger)) {
         transform.localScale = new Vector3(1f,0.1f,1f);
+      }
+      compare_tile.SetActive(false);
+      if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+        compare_tile.transform.position = this.transform.position - transform.right*this.transform.localScale.x;
+        compare_tile.transform.localScale = this.transform.localScale;
+        compare_tile.SetActive(true);
       }
     }
 }

@@ -24,7 +24,7 @@ public class move_tile : MonoBehaviour
       }
 
       // reset & get data
-      if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+      if (OVRInput.GetDown(OVRInput.RawButton.A) || OVRInput.GetDown(OVRInput.RawButton.B) ) {
         StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
         var compare_pos = 0f;
         if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
@@ -33,12 +33,15 @@ public class move_tile : MonoBehaviour
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           SceneManager.GetActiveScene().name + "," +
+          OVRInput.Get(OVRInput.RawButton.A) + "," +
+          OVRInput.Get(OVRInput.RawButton.B) + "," +
           (transform.position.x) + "," +
           (transform.position.y) + "," +
           (transform.position.z) + "," +
           transform.localScale.x + "," +
           transform.localScale.y + "," +
           transform.localScale.z + "," +
+          GetComponent<Renderer>().material.color + "," +
           OVRInput.Get(OVRInput.RawButton.RIndexTrigger) + "," +
           OVRInput.Get(OVRInput.RawButton.RHandTrigger) + "," +
           compare_pos
@@ -47,6 +50,7 @@ public class move_tile : MonoBehaviour
         sw.Close();
 
         transform.position = new Vector3(0.5f,0f,3.5f);
+        GetComponent<Renderer>().material.color = new Color32(65,65,65,1);
       }
 
       if (OVRInput.Get(OVRInput.RawButton.RThumbstickUp)) {
@@ -64,6 +68,15 @@ public class move_tile : MonoBehaviour
       } else if (OVRInput.Get(OVRInput.RawButton.LThumbstickRight)) {
         transform.position += new Vector3(0.01f,0f,0f);
       }
+
+      // color
+      var value = GetComponent<Renderer>().material.color.r;
+      if (OVRInput.Get(OVRInput.RawButton.RThumbstickRight)) {
+        value += 0.001f;
+      } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft)) {
+        value -= 0.001f;
+      }
+      GetComponent<Renderer>().material.color = new Color(value,value,value,1);
 
       // localScale
       transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/6f);

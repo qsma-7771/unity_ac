@@ -53,9 +53,9 @@ public class DataLogger : MonoBehaviour
 
         // target
         if (exprNo % 2 == 1) {
-          explanation.GetComponent<TextMesh>().text = "Aのタイルの色と同じ色に調整してください. \n 調整後Aボタン(手前)を押してください. ";
+          explanation.GetComponent<TextMesh>().text = "Aのタイルの色と同じ色に調整してください. \n 調整後Bボタン(奥)を押してください. ";
         } else {
-          explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後Bボタン(奥)を押してください. ";
+          explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後Aボタン(手前)を押してください. ";
         }
         // position
         if (exprNo % 4 < 2) {
@@ -96,9 +96,9 @@ public class DataLogger : MonoBehaviour
 
       // color
       if (OVRInput.Get(OVRInput.RawButton.RThumbstickRight)) {
-        Value += 0.001f;
-      } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft)) {
         Value -= 0.001f;
+      } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft)) {
+        Value += 0.001f;
       }
       if (false) { // lock
         if (OVRInput.Get(OVRInput.RawButton.RThumbstickUp)) {

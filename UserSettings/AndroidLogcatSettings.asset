@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1WMHH8113E0411",
         "name": "com.qsma.checker_shadow",
-        "processId": 4004,
+        "processId": 5621,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -138,6 +138,30 @@
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow",
             "processId": 4004,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow",
+            "processId": 19387,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow",
+            "processId": 3814,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow",
+            "processId": 4903,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow",
+            "processId": 5621,
             "exited": false
         }
     ],

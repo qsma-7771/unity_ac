@@ -17,11 +17,13 @@ public class move_compare_tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.Get(OVRInput.RawButton.LIndexTrigger)) {
+      if (OVRInput.Get(OVRInput.RawButton.LHandTrigger)) {
+        if (OVRInput.Get(OVRInput.RawButton.RThumbstickRight)) {
           transform.position += direction / 100;
-        } else if (OVRInput.Get(OVRInput.RawButton.LHandTrigger)) {
+        } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft)) {
           transform.position -= direction / 100;
         }
         //this.transform.position +=
+      }
     }
 }

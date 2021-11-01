@@ -351,7 +351,7 @@ public class OVRCameraRig : MonoBehaviour
 			_rightEyeCamera.stereoTargetEye = StereoTargetEyeMask.Right;
 		}
 
-		if (monoscopic && !OVRPlugin.EyeTextureArrayEnabled)
+		if (monoscopic && !OVRPlugin.EyeTextureArrayEnabled && false) // !! changed (qsma) !!
 		{
 			// Output to left eye only when in monoscopic mode
 			if (_centerEyeCamera.stereoTargetEye != StereoTargetEyeMask.Left)

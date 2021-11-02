@@ -57,28 +57,27 @@ public class DataLogger : MonoBehaviour
         } else {
           explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後Aボタン(手前)を押してください. ";
         }
-        // position
-        if (exprNo % 4 < 2) {
+        // position & size
+        if (exprNo % 6 < 2) {
           transform.position = new Vector3(0.5f,0f,3.5f);
         } else {
           transform.position = new Vector3(0.5f,0f,3.5f) + new Vector3(-0.5f,3f,-3.5f)/2;
         }
-        // disparity
-        if (exprNo % 8 < 4) {
-          OVRManager.instance.monoscopic = false;
-        } else {
-          OVRManager.instance.monoscopic = true;
-        }
-        // size
-        if (exprNo % 16 < 8) {
+        if (exprNo % 6 < 4) {
           transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/3f);
         } else {
           transform.localScale = new Vector3(1f,0.1f,1f);
         }
+        // disparity
+        if (exprNo % 12 < 6) {
+          OVRManager.instance.monoscopic = false;
+        } else {
+          OVRManager.instance.monoscopic = true;
+        }
         // initial color randomize
         Value = (float)new System.Random().NextDouble();
 
-        if (exprNo > 16) {
+        if (exprNo > 12) {
           explanation.GetComponent<TextMesh>().text = "実験終了です";
         } else {
           sw.WriteLine(

@@ -80,13 +80,14 @@ public class DataLogger : MonoBehaviour
         if (exprNo > 12) {
           explanation.GetComponent<TextMesh>().text = "実験終了です";
         } else {
-          sw.WriteLine(
+          StreamWriter sw2 = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
+          sw2.WriteLine(
             DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
             "Initialized" + "," +
             Value
           );
-          sw.Flush();
-          sw.Close();
+          sw2.Flush();
+          sw2.Close();
         }
 
         Debug.Log(exprNo);

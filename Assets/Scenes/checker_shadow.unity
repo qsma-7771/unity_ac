@@ -1362,9 +1362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e376598a390d7a4483d1c149e2cb51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SliderHue: {fileID: 0}
-  m_SliderSaturation: {fileID: 0}
-  m_SliderValue: {fileID: 0}
 --- !u!114 &235012731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4372,7 +4369,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

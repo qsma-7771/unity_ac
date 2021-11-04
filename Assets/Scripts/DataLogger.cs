@@ -9,11 +9,13 @@ public class DataLogger : MonoBehaviour
 {
     public int exprNo;
     public GameObject explanation;
+    public Material initial_material;
 
     // Start is called before the first frame update
     void Start()
     {
       exprNo = 0;
+      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n 右手人差し指で決定を押してください. ";
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class DataLogger : MonoBehaviour
       UnityEngine.Color.RGBToHSV(GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
 
       // reset & get data
-      if (OVRInput.GetDown(OVRInput.RawButton.A) || OVRInput.GetDown(OVRInput.RawButton.B) ) {
+      if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
         StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
@@ -53,9 +55,9 @@ public class DataLogger : MonoBehaviour
 
         // target
         if (exprNo % 2 == 1) {
-          explanation.GetComponent<TextMesh>().text = "Aのタイルの色と同じ色に調整してください. \n 調整後Bボタン(奥)を押してください. ";
+          explanation.GetComponent<TextMesh>().text = "Aのタイルの色と同じ色に調整してください. \n 調整後右手人差し指でトリガーを引いてください. ";
         } else {
-          explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後Aボタン(手前)を押してください. ";
+          explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後右手人差し指でトリガーを引いてください. ";
         }
         // position & size
         if (exprNo % 6 < 2) {
@@ -95,24 +97,17 @@ public class DataLogger : MonoBehaviour
       }
 
       // color
-      if (OVRInput.Get(OVRInput.RawButton.RThumbstickRight)) {
-        Value -= 0.001f;
-      } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft)) {
-        Value += 0.001f;
-      }
-      if (false) { // lock
-        if (OVRInput.Get(OVRInput.RawButton.RThumbstickUp)) {
-          Saturation += 0.001f;
-        } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickDown)) {
-          Saturation -= 0.001f;
-        }
-        if (OVRInput.Get(OVRInput.RawButton.LThumbstickRight)) {
-          Hue += 0.001f;
-        } else if (OVRInput.Get(OVRInput.RawButton.LThumbstickLeft)) {
-          Hue -= 0.001f;
-        }
+      if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
+        Value += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y;
+        Saturation += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
+        Hue += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x;
       }
       GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
+      if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
+        if (OVRInput.Get(OVRInput.RawButton.LIndexTrigger)) {
+          GetComponent<Renderer>().material = initial_material;
+        }
+      }
 
     }
 }

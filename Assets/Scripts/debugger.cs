@@ -65,18 +65,32 @@ public class debugger : MonoBehaviour
         // disparity
         if (OVRInput.Get(OVRInput.RawButton.X)) {
           OVRManager.instance.monoscopic = false;
-          disappear_tiles.SetActive(false);
         } else if (OVRInput.Get(OVRInput.RawButton.Y)) {
           OVRManager.instance.monoscopic = true;
         }
 
 
+        // target change
+        if (OVRInput.Get(OVRInput.RawButton.A)) {
+          GameObject.Find("target tile").GetComponent<Renderer>().enabled = false;
+        } else {
+          GameObject.Find("target tile").GetComponent<Renderer>().enabled = true;
+        }
+        if (OVRInput.Get(OVRInput.RawButton.B)) {
+          GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = false;
+        } else {
+          GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = true;
+        }
+
+
         float Hue, Saturation, Value;
         UnityEngine.Color.RGBToHSV(GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
-        debug_log.GetComponent<TextMesh>().text = "H: " + Hue + "\nS: " + Saturation + "\nV: " + Value + "\n" + transform.position + "\n" + new System.Random().NextDouble();
+        debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
       } else {
-        debug_log.GetComponent<TextMesh>().text = "";
+        float Hue, Saturation, Value;
+        UnityEngine.Color.RGBToHSV(GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
+        debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
+        //debug_log.GetComponent<TextMesh>().text = "";
       }
-
     }
 }

@@ -1219,6 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exprNo: 0
   explanation: {fileID: 59469147}
+  initial_material: {fileID: 0}
 --- !u!1 &276061477
 GameObject:
   m_ObjectHideFlags: 0

@@ -1251,7 +1251,6 @@ GameObject:
   - component: {fileID: 235012726}
   - component: {fileID: 235012729}
   - component: {fileID: 235012731}
-  - component: {fileID: 235012730}
   m_Layer: 0
   m_Name: target tile
   m_TagString: Untagged
@@ -1350,21 +1349,6 @@ MonoBehaviour:
   appear_tiles: {fileID: 1851836098}
   disappear_tiles: {fileID: 1587413061}
   debug_log: {fileID: 996044588}
---- !u!114 &235012730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235012724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e376598a390d7a4483d1c149e2cb51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SliderHue: {fileID: 0}
-  m_SliderSaturation: {fileID: 0}
-  m_SliderValue: {fileID: 0}
 --- !u!114 &235012731
 MonoBehaviour:
   m_ObjectHideFlags: 0

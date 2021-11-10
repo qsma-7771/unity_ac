@@ -77,9 +77,9 @@ public class debugger : MonoBehaviour
           GameObject.Find("target tile").GetComponent<Renderer>().enabled = true;
         }
         if (OVRInput.Get(OVRInput.RawButton.B)) {
-          GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = false;
+          //GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = false;
         } else {
-          GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = true;
+          //GameObject.Find("target tile tmp").GetComponent<Renderer>().enabled = true;
         }
 
 
@@ -87,10 +87,7 @@ public class debugger : MonoBehaviour
         UnityEngine.Color.RGBToHSV(GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
         debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
       } else {
-        float Hue, Saturation, Value;
-        UnityEngine.Color.RGBToHSV(GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
-        debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
-        //debug_log.GetComponent<TextMesh>().text = "";
+        debug_log.GetComponent<TextMesh>().text = "";
       }
     }
 }

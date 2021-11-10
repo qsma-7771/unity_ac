@@ -9,13 +9,14 @@ public class DataLogger : MonoBehaviour
 {
     public int exprNo;
     public GameObject explanation;
+    public GameObject[] descriptions;
     public Material initial_material;
 
     // Start is called before the first frame update
     void Start()
     {
       exprNo = 0;
-      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n 右手人差し指で決定を押してください. ";
+      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験ではBタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
     }
 
     // Update is called once per frame
@@ -26,12 +27,34 @@ public class DataLogger : MonoBehaviour
 
       // reset & get data
       if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
+        string id;
+
+        // Instruction
+        if (exprNo % 2 == 1) {
+          // experiment
+          foreach (GameObject description in descriptions) {
+            description.SetActive(false);
+          }
+          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n 調整したら右手人差し指でトリガーを引いてください. ";
+          // initial color randomize
+          Value = (float)new System.Random().NextDouble();
+          id = "initial";
+        } else {
+          // explanation
+          foreach (GameObject description in descriptions) {
+            description.SetActive(true);
+          }
+          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してもらいます. \n AタイルとBタイルの位置を確認したら, 右手人差し指でトリガーを引いてください. ";
+          id = (exprNo/2).ToString();
+        }
+
+        // output
         StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
-          exprNo + "," +
-          OVRInput.Get(OVRInput.RawButton.A) + "," +
-          OVRInput.Get(OVRInput.RawButton.B) + "," +
+          id + "," +
+          OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y + "," +
+          OVRInput.Get(OVRInput.RawButton.LHandTrigger) + "," +
           OVRManager.instance.monoscopic + "," +
           (transform.position.x) + "," +
           (transform.position.y) + "," +
@@ -47,18 +70,13 @@ public class DataLogger : MonoBehaviour
         sw.Flush();
         sw.Close();
 
-        exprNo++;
         // Initialize
         transform.position = new Vector3(0.5f,0f,3.5f);
         transform.localScale = new Vector3(1f,0.1f,1f);
-        GetComponent<Renderer>().material.color = new Color32(65,65,65,1);
+        GetComponent<Renderer>().material = initial_material;
+
 
         // target
-        if (exprNo % 2 == 1) {
-          explanation.GetComponent<TextMesh>().text = "Aのタイルの色と同じ色に調整してください. \n 調整後右手人差し指でトリガーを引いてください. ";
-        } else {
-          explanation.GetComponent<TextMesh>().text = "Cのタイルの色と同じ色に調整してください. \n 調整後右手人差し指でトリガーを引いてください. ";
-        }
         // position & size
         if (exprNo % 6 < 2) {
           transform.position = new Vector3(0.5f,0f,3.5f);
@@ -76,23 +94,13 @@ public class DataLogger : MonoBehaviour
         } else {
           OVRManager.instance.monoscopic = true;
         }
-        // initial color randomize
-        Value = (float)new System.Random().NextDouble();
 
-        if (exprNo > 12) {
-          explanation.GetComponent<TextMesh>().text = "実験終了です";
-        } else {
-          StreamWriter sw2 = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
-          sw2.WriteLine(
-            DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
-            "Initialized" + "," +
-            Value
-          );
-          sw2.Flush();
-          sw2.Close();
+        if (exprNo >= 12) {
+          explanation.GetComponent<TextMesh>().text = "実験終了です. ヘッドセットを外してください. ";
         }
 
         Debug.Log(exprNo);
+        exprNo++;
 
       }
 

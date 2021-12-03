@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "1WMHH8113E0411",
     "m_SelectedPackage": {
         "deviceId": "1WMHH8113E0411",
-        "name": "com.qsma.checker_shadow",
-        "processId": 8547,
+        "name": "com.qsma.checker_shadow_filter",
+        "processId": 8217,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -48,6 +48,54 @@
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow",
             "processId": 8547,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 4586,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 5335,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 5922,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 6207,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 6951,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 7303,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 7779,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 8217,
             "exited": false
         }
     ],

@@ -3,99 +3,105 @@
     "m_SelectedPackage": {
         "deviceId": "1WMHH8113E0411",
         "name": "com.qsma.checker_shadow_filter",
-        "processId": 8217,
+        "processId": 20728,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.checker_shadow",
-            "processId": 13733,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 9528,
             "exited": true
         },
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.checker_shadow",
-            "processId": 14193,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 11395,
             "exited": true
         },
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.checker_shadow",
-            "processId": 4004,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 12168,
             "exited": true
         },
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.subPCtest",
-            "processId": 8701,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 12664,
             "exited": true
         },
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.subPCtest",
-            "processId": 7878,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 14372,
             "exited": true
         },
         {
             "deviceId": "1WMHH8113E0411",
-            "name": "com.oculus.os.vrusb",
-            "processId": 9375,
-            "exited": false
-        },
-        {
-            "deviceId": "1WMHH8113E0411",
-            "name": "com.qsma.checker_shadow",
-            "processId": 8547,
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 15228,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 4586,
+            "processId": 15627,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 5335,
+            "processId": 15972,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 5922,
+            "processId": 16545,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 6207,
+            "processId": 16897,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 6951,
+            "processId": 17433,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 7303,
+            "processId": 17741,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 7779,
+            "processId": 18291,
             "exited": false
         },
         {
             "deviceId": "1WMHH8113E0411",
             "name": "com.qsma.checker_shadow_filter",
-            "processId": 8217,
+            "processId": 18622,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 18777,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH8113E0411",
+            "name": "com.qsma.checker_shadow_filter",
+            "processId": 20728,
             "exited": false
         }
     ],

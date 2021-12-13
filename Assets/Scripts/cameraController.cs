@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     Vector3 basePosition = Vector3.zero;
 
@@ -15,6 +15,7 @@ public class cameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // todo: obsolete
         var trackingPosition = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.CenterEye);
 
         var scale = transform.localScale;

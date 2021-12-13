@@ -8,16 +8,17 @@ public class ContrastExpr : MonoBehaviour
 {
 
     public int exprNo;
-    public GameObject test;
+    public GameObject explanation;
     public float meanLuminance;
     public float Volatility;
 
-    public GameObject debug_log;
+    //public GameObject debug_log;
 
     // Start is called before the first frame update
     void Start()
     {
         exprNo = 0;
+      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験では左のタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
         meanLuminance = 0.55f;
         Volatility = 1.00f;
     }
@@ -31,6 +32,8 @@ public class ContrastExpr : MonoBehaviour
       if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
         string id;
         id = "test";
+
+        // Instruction
 
         // output
         StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
@@ -51,6 +54,8 @@ public class ContrastExpr : MonoBehaviour
         );
         sw.Flush();
         sw.Close();
+
+        // target
       }
 
       // color
@@ -72,7 +77,6 @@ public class ContrastExpr : MonoBehaviour
           meanLuminance = -min_limit * Volatility;
         }
       }
-
       // all tile color change
       for (int i = 0; i < transform.childCount; i++) {
         GameObject child_tile = transform.GetChild(i).gameObject;
@@ -87,13 +91,6 @@ public class ContrastExpr : MonoBehaviour
         Debug.Log(Value);
       }
 
-        // disparity
-        if (OVRInput.Get(OVRInput.RawButton.X)) {
-          OVRManager.instance.monoscopic = false;
-        } else if (OVRInput.Get(OVRInput.RawButton.Y)) {
-          OVRManager.instance.monoscopic = true;
-        }
-
       // reset color
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
         if (OVRInput.Get(OVRInput.RawButton.LIndexTrigger)) {
@@ -103,6 +100,6 @@ public class ContrastExpr : MonoBehaviour
       }
 
       // debug
-      debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n Max color: {40} \n {transform.childCount}" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
+      //debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n tile x {transform.childCount}\n" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
     }
 }

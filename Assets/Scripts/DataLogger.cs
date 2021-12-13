@@ -111,6 +111,8 @@ public class DataLogger : MonoBehaviour
         Hue += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x;
       }
       GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
+
+      // reset color
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
         if (OVRInput.Get(OVRInput.RawButton.LIndexTrigger)) {
           GetComponent<Renderer>().material = initial_material;

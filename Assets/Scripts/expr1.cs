@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 using System;
 using System.IO;
 
-public class DataLogger : MonoBehaviour
+public class expr1 : MonoBehaviour
 {
     public int exprNo;
     public GameObject explanation;
     public GameObject[] descriptions;
+    public GameObject[] tiles;
     public Material initial_material;
 
     // Start is called before the first frame update
@@ -27,9 +28,27 @@ public class DataLogger : MonoBehaviour
 
       // reset & get data
       if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
-        string id;
+        string id = "initialized";
 
         // Instruction
+        if (id == "initialized") {
+          foreach (GameObject description in descriptions) {
+            description.SetActive(true); // guide is visible
+          }
+          id = exprNo.ToString();
+          // next instruction text
+          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してもらいます. \n AタイルとBタイルの位置を確認したら, 右手人差し指でトリガーを引いてください. ";
+        } else {
+          foreach (GameObject description in descriptions) {
+            description.SetActive(false); // guide is imvisible
+          }
+          exprNo++;
+          // color initialize
+          Value = (float)new System.Random().NextDouble();
+          id = "initialized";
+          // next instruction text
+          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n 調整したら右手人差し指でトリガーを引いてください. ";
+        }
         if (exprNo % 2 == 1) {
           // experiment
           foreach (GameObject description in descriptions) {
@@ -38,7 +57,7 @@ public class DataLogger : MonoBehaviour
           explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n 調整したら右手人差し指でトリガーを引いてください. ";
           // initial color randomize
           Value = (float)new System.Random().NextDouble();
-          id = "initial";
+          id = "initialized";
         } else {
           // explanation
           foreach (GameObject description in descriptions) {
@@ -49,7 +68,7 @@ public class DataLogger : MonoBehaviour
         }
 
         // output
-        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position_expr1.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           id + "," +
@@ -78,29 +97,40 @@ public class DataLogger : MonoBehaviour
 
         // target
         // position & size
-        if (exprNo % 6 < 2) {
+        if (exprNo % 5 < 1) {
           transform.position = new Vector3(0.5f,0f,3.5f);
-        } else {
+        } else if (exprNo % 5 < 3) {
           transform.position = new Vector3(0.5f,0f,3.5f) + new Vector3(-0.5f,3f,-3.5f)/2;
-        }
-        if (exprNo % 6 < 4) {
-          transform.localScale = new Vector3(1f,0.1f,1f) * (1f-transform.position.y/3f);
         } else {
-          transform.localScale = new Vector3(1f,0.1f,1f);
+          transform.position = new Vector3(0.5f,0f,3.5f) + new Vector3(-0.5f,3f,-3.5f)/4;
+        }
+        if (exprNo % 5 < 2 || 4 <= exprNo % 5) {
+          transform.localScale = new Vector3(0.5f,0.1f,0.5f) * (1f-transform.position.y/3f);
+        } else {
+          transform.localScale = new Vector3(0.5f,0.1f,0.5f);
         }
         // disparity
-        if (exprNo % 12 < 6) {
+        if (exprNo % 10 < 5) {
           OVRManager.instance.monoscopic = false;
         } else {
           OVRManager.instance.monoscopic = true;
         }
+        // motion parallax
+        if (exprNo % 20 < 10) {
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = true;
+        } else {
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = false;
+        }
 
-        if (exprNo >= 12) {
+        if (20 <= exprNo) {
           explanation.GetComponent<TextMesh>().text = "実験終了です. ヘッドセットを外してください. ";
+          foreach (GameObject tile in tiles) {
+            tile.SetActive(false);
+          }
         }
 
         Debug.Log(exprNo);
-        exprNo++;
+        Debug.Log(id);
 
       }
 

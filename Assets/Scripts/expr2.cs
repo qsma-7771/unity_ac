@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 
-public class ContrastExpr : MonoBehaviour
+public class expr2 : MonoBehaviour
 {
 
     public int exprNo;
@@ -12,13 +12,17 @@ public class ContrastExpr : MonoBehaviour
     public float meanLuminance;
     public float Volatility;
 
-    //public GameObject debug_log;
+    public GameObject filter;
+    public GameObject fakefilter;
+    public GameObject backfilter;
+
+    public GameObject debug_log;
 
     // Start is called before the first frame update
     void Start()
     {
         exprNo = 0;
-      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験では左のタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
+        explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験では左のタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
         meanLuminance = 0.55f;
         Volatility = 1.00f;
     }
@@ -36,7 +40,7 @@ public class ContrastExpr : MonoBehaviour
         // Instruction
 
         // output
-        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position.csv", append:true, System.Text.Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position_expr2.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           id + "," +
@@ -56,6 +60,20 @@ public class ContrastExpr : MonoBehaviour
         sw.Close();
 
         // target
+        GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = true;
+        if (exprNo % 2 == 0) {
+          filter.SetActive(false);
+          fakefilter.SetActive(true);
+          backfilter.SetActive(true);
+        } else if (exprNo % 2 == 1) {
+          filter.SetActive(true);
+          fakefilter.SetActive(false);
+          backfilter.SetActive(false);
+        } else {
+        }
+
+        Debug.Log(exprNo);
+        exprNo++;
       }
 
       // color
@@ -100,6 +118,6 @@ public class ContrastExpr : MonoBehaviour
       }
 
       // debug
-      //debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n tile x {transform.childCount}\n" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
+      debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n tile x {transform.childCount}\n" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
     }
 }

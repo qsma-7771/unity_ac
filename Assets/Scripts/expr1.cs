@@ -7,7 +7,8 @@ using System.IO;
 
 public class expr1 : MonoBehaviour
 {
-    public int exprNo;
+    private int exprNo;
+    private string id;
     public GameObject explanation;
     public GameObject[] descriptions;
     public GameObject[] tiles;
@@ -17,7 +18,8 @@ public class expr1 : MonoBehaviour
     void Start()
     {
       exprNo = 0;
-      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験ではBタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
+      id = "initialized";
+      explanation.GetComponent<TextMesh>().text = "実験を始めます. \n 人差し指でトリガーを引いてください. ";
     }
 
     // Update is called once per frame
@@ -28,8 +30,6 @@ public class expr1 : MonoBehaviour
 
       // reset & get data
       if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
-        string id = "initialized";
-
         // Instruction
         if (id == "initialized") {
           foreach (GameObject description in descriptions) {
@@ -37,7 +37,7 @@ public class expr1 : MonoBehaviour
           }
           id = exprNo.ToString();
           // next instruction text
-          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してもらいます. \n AタイルとBタイルの位置を確認したら, 右手人差し指でトリガーを引いてください. ";
+          explanation.GetComponent<TextMesh>().text = "AタイルとBタイルの位置を確認してください. \n その後, 人差し指でトリガーを引いてください. ";
         } else {
           foreach (GameObject description in descriptions) {
             description.SetActive(false); // guide is imvisible
@@ -47,28 +47,11 @@ public class expr1 : MonoBehaviour
           Value = (float)new System.Random().NextDouble();
           id = "initialized";
           // next instruction text
-          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n 調整したら右手人差し指でトリガーを引いてください. ";
-        }
-        if (exprNo % 2 == 1) {
-          // experiment
-          foreach (GameObject description in descriptions) {
-            description.SetActive(false);
-          }
-          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n 調整したら右手人差し指でトリガーを引いてください. ";
-          // initial color randomize
-          Value = (float)new System.Random().NextDouble();
-          id = "initialized";
-        } else {
-          // explanation
-          foreach (GameObject description in descriptions) {
-            description.SetActive(true);
-          }
-          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してもらいます. \n AタイルとBタイルの位置を確認したら, 右手人差し指でトリガーを引いてください. ";
-          id = (exprNo/2).ToString();
+          explanation.GetComponent<TextMesh>().text = "BタイルをAタイルと同じ色に調整してください. \n その後, 人差し指でトリガーを引いてください. ";
         }
 
         // output
-        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position_expr1.csv", append:true, System.Text.Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/expr1.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           id + "," +
@@ -93,7 +76,6 @@ public class expr1 : MonoBehaviour
         transform.position = new Vector3(0.5f,0f,3.5f);
         transform.localScale = new Vector3(1f,0.1f,1f);
         GetComponent<Renderer>().material = initial_material;
-
 
         // target
         // position & size
@@ -122,11 +104,12 @@ public class expr1 : MonoBehaviour
           GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = false;
         }
 
-        if (20 <= exprNo) {
-          explanation.GetComponent<TextMesh>().text = "実験終了です. ヘッドセットを外してください. ";
+        if (id == "20") {
+          explanation.GetComponent<TextMesh>().text = "実験終了です. そのままお待ちください. ";
           foreach (GameObject tile in tiles) {
             tile.SetActive(false);
           }
+          SceneManager.LoadScene("main");
         }
 
         Debug.Log(exprNo);

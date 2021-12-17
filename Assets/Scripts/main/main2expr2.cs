@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class main2expr1 : MonoBehaviour//, IPointerExitHandler, IPointerEnterHandler, IPointerClickHandler
+public class main2expr2 : MonoBehaviour//, IPointerExitHandler, IPointerEnterHandler, IPointerClickHandler
 {
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class main2expr1 : MonoBehaviour//, IPointerExitHandler, IPointerEnterHan
     // button
     public void OnClick(){
         gameObject.GetComponent<Renderer>().material.color = Color.red;
-        SceneManager.LoadScene("expr1");
+        SceneManager.LoadScene("expr2");
     }
 
     /*

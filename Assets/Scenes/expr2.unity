@@ -2128,6 +2128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254062708}
+  - component: {fileID: 254062707}
   m_Layer: 0
   m_Name: right
   m_TagString: Untagged
@@ -2135,6 +2136,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &254062707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254062706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66875217dc7d8294d81f11c9f5f833c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meanLuminance: 0
+  Volatility: 0
 --- !u!4 &254062708
 Transform:
   m_ObjectHideFlags: 0
@@ -2796,7 +2811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3ccb2bcea4d314f92c61921cd6ff7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exprNo: 0
   explanation: {fileID: 59469147}
   meanLuminance: 0.55
   Volatility: 1
@@ -2818,7 +2832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 2488620351122944551}
   target: {fileID: 0}
-  debug_log: {fileID: 996044588}
+  debug_log: {fileID: 0}
 --- !u!1 &401463030
 GameObject:
   m_ObjectHideFlags: 0
@@ -6885,7 +6899,7 @@ TextMesh:
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
 --- !u!23 &996044590
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17328,7 +17342,7 @@ MonoBehaviour:
   m_modelOculusTouchRiftRightController: {fileID: 590975845454942778}
   m_modelOculusTouchQuest2LeftController: {fileID: 78098575001250745}
   m_modelOculusTouchQuest2RightController: {fileID: 7565442605710816946}
-  m_controller: 1
+  m_controller: 0
 --- !u!33 &6162718892411662816
 MeshFilter:
   m_ObjectHideFlags: 0

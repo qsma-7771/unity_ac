@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: qsma
-  productName: checker_shadow_expr2
+  productName: checker_shadow
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -134,8 +134,10 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 3.05
-  preloadedAssets: []
+  bundleVersion: 4.00
+  preloadedAssets:
+  - {fileID: 11400000, guid: c161766b080032349bec0a1b9bf9a2c9, type: 2}
+  - {fileID: 5991171652340138088, guid: bb2196f2b5dea4e4aabf0394b3032106, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -153,7 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.qsma.checker_shadow_expr2
+    Android: com.qsma.checker_shadow
   buildNumber:
     Standalone: 0
     iPhone: 0

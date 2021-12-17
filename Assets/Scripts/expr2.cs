@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.IO;
 
 public class expr2 : MonoBehaviour
 {
 
-    public int exprNo;
+    private int exprNo;
+    private string id;
     public GameObject explanation;
     public float meanLuminance;
     public float Volatility;
@@ -22,7 +24,8 @@ public class expr2 : MonoBehaviour
     void Start()
     {
         exprNo = 0;
-        explanation.GetComponent<TextMesh>().text = "実験を始めます. \n この実験では左のタイルの色を右手のスティック(上下)で調整してもらいます. \n 右手人差し指でトリガーを引いてください. ";
+        id = "initialized";
+        explanation.GetComponent<TextMesh>().text = "実験を始めます. \n 人差し指でトリガーを引いてください. ";
         meanLuminance = 0.55f;
         Volatility = 1.00f;
     }
@@ -34,13 +37,28 @@ public class expr2 : MonoBehaviour
 
       // reset & data get
       if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
-        string id;
-        id = "test";
-
         // Instruction
+        if (id == "initialized") {
+          id = exprNo.ToString();
+          // next instruction text
+          explanation.GetComponent<TextMesh>().text = "左のタイルを右のタイルと同じ色に調整してもらいます. \n 人差し指でトリガーを引いて実験を始めてください. ";
+        } else {
+          exprNo++;
+          // color initialize
+          if (exprNo % 2 == 1) {
+            meanLuminance = (float)new System.Random().NextDouble();
+            Volatility = 0.50f;
+          } else {
+            meanLuminance = 0.55f;
+            Volatility = (float)new System.Random().NextDouble() * 2;
+          }
+          id = "initialized";
+          // next instruction text
+          explanation.GetComponent<TextMesh>().text = "調整したら人差し指でトリガーを引いてください. ";
+        }
 
         // output
-        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/position_expr2.csv", append:true, System.Text.Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(UnityEngine.Application.persistentDataPath + "/expr2.csv", append:true, System.Text.Encoding.UTF8);
         sw.WriteLine(
           DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "," +
           id + "," +
@@ -60,24 +78,67 @@ public class expr2 : MonoBehaviour
         sw.Close();
 
         // target
-        GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = true;
-        if (exprNo % 2 == 0) {
-          filter.SetActive(false);
-          fakefilter.SetActive(true);
-          backfilter.SetActive(true);
-        } else if (exprNo % 2 == 1) {
+        // position & size
+        if (exprNo % 6 < 2) {
           filter.SetActive(true);
           fakefilter.SetActive(false);
           backfilter.SetActive(false);
+        } else if (exprNo % 6 < 4) {
+          filter.SetActive(false);
+          fakefilter.SetActive(true);
+          backfilter.SetActive(false);
         } else {
+          filter.SetActive(false);
+          fakefilter.SetActive(true);
+          backfilter.SetActive(true);
+        }
+        // disparity
+        if (exprNo % 12 < 6) {
+          OVRManager.instance.monoscopic = false;
+        } else {
+          OVRManager.instance.monoscopic = true;
+        }
+        // motion parallax
+        if (exprNo % 24 < 12) {
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = true;
+        } else {
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary = false;
+        }
+
+        if (id == "24") {
+          explanation.GetComponent<TextMesh>().text = "実験終了です. そのままお待ちください. ";
+          SceneManager.LoadScene("main");
         }
 
         Debug.Log(exprNo);
-        exprNo++;
+        Debug.Log(id);
       }
 
       // color
       // input
+      var max_limit = 0.38f;
+      var min_limit = -0.38f;
+      if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
+        if (exprNo % 2 == 1) {
+          meanLuminance += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+          if (meanLuminance<0) {meanLuminance=0;}
+          if (1.00f < meanLuminance + max_limit * Volatility) {
+            meanLuminance = 1.00f - max_limit * Volatility;
+          } else if (meanLuminance + min_limit * Volatility < 0.00f) {
+            meanLuminance = -min_limit * Volatility;
+          }
+        }
+        if (exprNo % 2 == 0) {
+          Volatility += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+          if (Volatility<0) {Volatility=0;}
+          if (1.00f < meanLuminance + max_limit * Volatility) {
+            Volatility = (1.00f - meanLuminance)/max_limit;
+          } else if (meanLuminance + min_limit * Volatility < 0.00f) {
+            Volatility = -meanLuminance/min_limit;
+        }
+        }
+      }
+      /*
       var max_limit = 0.38f;
       var min_limit = -0.38f;
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
@@ -88,13 +149,15 @@ public class expr2 : MonoBehaviour
         } else if (meanLuminance + min_limit * Volatility < 0.00f) {
           Volatility = -meanLuminance/min_limit;
         }
-        Volatility += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
+        Volatility += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y;
+        if (Volatility<0) {Volatility=0;}
         if (1.00f < meanLuminance + max_limit * Volatility) {
           meanLuminance = 1.00f - max_limit * Volatility;
         } else if (meanLuminance + min_limit * Volatility < 0.00f) {
           meanLuminance = -min_limit * Volatility;
         }
       }
+      */
       // all tile color change
       for (int i = 0; i < transform.childCount; i++) {
         GameObject child_tile = transform.GetChild(i).gameObject;
@@ -104,9 +167,6 @@ public class expr2 : MonoBehaviour
 
         Value = meanLuminance + tile_colors[i]/100f * Volatility;
         child_tile.GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
-
-        Debug.Log(tile_colors[i]/100f);
-        Debug.Log(Value);
       }
 
       // reset color

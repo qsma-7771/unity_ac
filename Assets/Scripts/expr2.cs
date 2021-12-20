@@ -178,6 +178,6 @@ public class expr2 : MonoBehaviour
       }
 
       // debug
-      debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n tile x {transform.childCount}\n" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
+      //debug_log.GetComponent<TextMesh>().text = $"meanLuminance: {meanLuminance:F3}\n Volatility: {Volatility:F3}\n tile x {transform.childCount}\n" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "\n";
     }
 }

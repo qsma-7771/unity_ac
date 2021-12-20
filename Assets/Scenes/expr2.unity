@@ -17249,7 +17249,7 @@ MonoBehaviour:
   m_modelOculusTouchRiftRightController: {fileID: 8223839291143951938}
   m_modelOculusTouchQuest2LeftController: {fileID: 8864796111258087361}
   m_modelOculusTouchQuest2RightController: {fileID: 1364233149929435850}
-  m_controller: 2
+  m_controller: 0
 --- !u!4 &4036769061712113795
 Transform:
   m_ObjectHideFlags: 0

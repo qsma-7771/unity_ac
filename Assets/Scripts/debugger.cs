@@ -52,10 +52,10 @@ public class debugger : MonoBehaviour
         */
 
         // localScale
-        transform.localScale = new Vector3(0.5f,0.05f,0.5f) * (1f-transform.position.y/3f);
-        if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
-          transform.localScale = new Vector3(0.5f,0.05f,0.5f);
-        }
+        //transform.localScale = new Vector3(0.5f,0.05f,0.5f) * (1f-transform.position.y/3f);
+        //if (OVRInput.Get(OVRInput.RawButton.)) {
+          //transform.localScale = new Vector3(0.5f,0.05f,0.5f);
+        //}
 
         // disparity
         if (OVRInput.Get(OVRInput.RawButton.X)) {
@@ -75,6 +75,11 @@ public class debugger : MonoBehaviour
         float Hue, Saturation, Value;
         UnityEngine.Color.RGBToHSV(target.GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
         debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
+
+        // back main scene
+        if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+          SceneManager.LoadScene("main");
+        }
       } else {
         debug_log.GetComponent<TextMesh>().text = "";
       }

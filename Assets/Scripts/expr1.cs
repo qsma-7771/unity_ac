@@ -119,9 +119,9 @@ public class expr1 : MonoBehaviour
 
       // color
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
-        Value += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y;
-        Saturation += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
-        Hue += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x;
+        Value += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+        Saturation += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y,3);
+        Hue += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x,3);
       }
       GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
 

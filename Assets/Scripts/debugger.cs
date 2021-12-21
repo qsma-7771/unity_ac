@@ -28,9 +28,9 @@ public class debugger : MonoBehaviour
 
         // target move
         if (OVRInput.Get(OVRInput.RawButton.RThumbstickUp)) {
-          transform.position += direction;
+          transform.position += 0.01f * direction/direction.magnitude;
         } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickDown)) {
-          transform.position -= direction;
+          transform.position -= 0.01f * direction/direction.magnitude;
         }
         // front back move
         transform.position += new Vector3(0f,0f,0.01f) * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
@@ -71,15 +71,15 @@ public class debugger : MonoBehaviour
           camera.GetComponent<MotionParallax>().stationary = false;
         }
 
-        // color debug
-        float Hue, Saturation, Value;
-        UnityEngine.Color.RGBToHSV(target.GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
-        debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
-
         // back main scene
         if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
           SceneManager.LoadScene("main");
         }
+
+        // color debug
+        float Hue, Saturation, Value;
+        UnityEngine.Color.RGBToHSV(target.GetComponent<Renderer>().material.color, out Hue, out Saturation, out Value);
+        debug_log.GetComponent<TextMesh>().text = $"HSV: {Hue:F3},{Saturation:F3},{Value:F3}\n" + transform.position + "\n";
       } else {
         debug_log.GetComponent<TextMesh>().text = "";
       }

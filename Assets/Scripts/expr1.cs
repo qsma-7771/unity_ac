@@ -118,10 +118,14 @@ public class expr1 : MonoBehaviour
       }
 
       // color
+      float coefficient = 0.002f;
+      if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+        coefficient = coefficient/3;
+      }
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
-        Value += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
-        Saturation += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y,3);
-        Hue += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x,3);
+        Value += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+        Saturation += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y,3);
+        Hue += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x,3);
       }
       GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
 

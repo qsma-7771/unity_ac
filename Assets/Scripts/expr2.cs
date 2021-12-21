@@ -36,7 +36,7 @@ public class expr2 : MonoBehaviour
       int[] tile_colors = { 3,-38,8,-33,-19,-26,-38,24, 24,-11,24,34,-5,30,-11,15, -26,3,8,-5,30,-38,34,-8, -33,30,15,-11,-26,38,24,-26, -38,-19,21,-33,-5,30,15,38, 34,15,-33,-38,-26,-5,-33,-26, -5,30,8,-19,8,-38,38,-33, 8,-38,34,8,15,3,-19,15 };
 
       // reset & data get
-      if ( OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
+      if ( (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) || (id != "initialized")) && !OVRInput.Get(OVRInput.RawButton.LHandTrigger) ) {
         // Instruction
         if (id == "initialized") {
           id = exprNo.ToString();
@@ -116,11 +116,15 @@ public class expr2 : MonoBehaviour
 
       // color
       // input
+      float coefficient = 0.003f;
+      if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+        coefficient = coefficient/3;
+      }
       var max_limit = 0.38f;
       var min_limit = -0.38f;
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
         if (exprNo % 2 == 1) {
-          meanLuminance += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+          meanLuminance += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
           if (meanLuminance<0) {meanLuminance=0;}
           if (1.00f < meanLuminance + max_limit * Volatility) {
             meanLuminance = 1.00f - max_limit * Volatility;
@@ -129,7 +133,7 @@ public class expr2 : MonoBehaviour
           }
         }
         if (exprNo % 2 == 0) {
-          Volatility += 0.01f * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+          Volatility += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
           if (Volatility<0) {Volatility=0;}
           if (1.00f < meanLuminance + max_limit * Volatility) {
             Volatility = (1.00f - meanLuminance)/max_limit;

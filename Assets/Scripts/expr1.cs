@@ -58,6 +58,7 @@ public class expr1 : MonoBehaviour
           OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y + "," +
           OVRInput.Get(OVRInput.RawButton.LHandTrigger) + "," +
           OVRManager.instance.monoscopic + "," +
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary + "," +
           (transform.position.x) + "," +
           (transform.position.y) + "," +
           (transform.position.z) + "," +

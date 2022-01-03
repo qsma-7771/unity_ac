@@ -58,6 +58,7 @@ public class expr1 : MonoBehaviour
           OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y + "," +
           OVRInput.Get(OVRInput.RawButton.LHandTrigger) + "," +
           OVRManager.instance.monoscopic + "," +
+          GameObject.Find("OVRCameraRig").GetComponent<MotionParallax>().stationary + "," +
           (transform.position.x) + "," +
           (transform.position.y) + "," +
           (transform.position.z) + "," +
@@ -118,10 +119,14 @@ public class expr1 : MonoBehaviour
       }
 
       // color
+      float coefficient = 0.002f;
+      if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+        coefficient = coefficient/3;
+      }
       if (!OVRInput.Get(OVRInput.RawButton.LHandTrigger)) { // not debug mode
-        Value += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y;
-        Saturation += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
-        Hue += 0.001f * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x;
+        Value += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y,3);
+        Saturation += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y,3);
+        Hue += coefficient * Mathf.Pow(OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x,3);
       }
       GetComponent<Renderer>().material.color = UnityEngine.Color.HSVToRGB(Hue,Saturation,Value);
 

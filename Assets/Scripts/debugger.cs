@@ -28,9 +28,9 @@ public class debugger : MonoBehaviour
 
         // target move
         if (OVRInput.Get(OVRInput.RawButton.RThumbstickUp)) {
-          transform.position += direction;
+          transform.position += 0.01f * direction/direction.magnitude;
         } else if (OVRInput.Get(OVRInput.RawButton.RThumbstickDown)) {
-          transform.position -= direction;
+          transform.position -= 0.01f * direction/direction.magnitude;
         }
         // front back move
         transform.position += new Vector3(0f,0f,0.01f) * OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
@@ -52,10 +52,10 @@ public class debugger : MonoBehaviour
         */
 
         // localScale
-        transform.localScale = new Vector3(0.5f,0.05f,0.5f) * (1f-transform.position.y/3f);
-        if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
-          transform.localScale = new Vector3(0.5f,0.05f,0.5f);
-        }
+        //transform.localScale = new Vector3(0.5f,0.05f,0.5f) * (1f-transform.position.y/3f);
+        //if (OVRInput.Get(OVRInput.RawButton.)) {
+          //transform.localScale = new Vector3(0.5f,0.05f,0.5f);
+        //}
 
         // disparity
         if (OVRInput.Get(OVRInput.RawButton.X)) {
@@ -69,6 +69,11 @@ public class debugger : MonoBehaviour
           camera.GetComponent<MotionParallax>().stationary = true;
         } else if (OVRInput.Get(OVRInput.RawButton.B)) {
           camera.GetComponent<MotionParallax>().stationary = false;
+        }
+
+        // back main scene
+        if (OVRInput.Get(OVRInput.RawButton.RHandTrigger)) {
+          SceneManager.LoadScene("main");
         }
 
         // color debug

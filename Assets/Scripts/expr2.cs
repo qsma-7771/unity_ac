@@ -72,6 +72,7 @@ public class expr2 : MonoBehaviour
           transform.localScale.x + "," +
           transform.localScale.y + "," +
           transform.localScale.z + "," +
+          filter.GetComponent<Renderer>().material.color + "," +
           meanLuminance + "," +
           Volatility
         );
